@@ -42,7 +42,7 @@ public class PlayActivity extends AppCompatActivity {
         paint.setTextSize(50);
         gameCanvas.drawText("Score: 42 Lives: 3 HI: 97 ",50,100,paint);
         gameFrame.setImageBitmap(gameBitmap);
-        //circle=new Circle(50,new Point(250,250));
+        //circle=new Circle(50,new Point(250,150));
         //drawCircle(circle, "Draw");
     }
 
