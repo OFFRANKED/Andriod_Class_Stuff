@@ -34,15 +34,19 @@ public class PlayActivity extends AppCompatActivity {
         display.getMetrics(metrics);
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
+        //Bitmap
         gameBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        //Canvas
         gameCanvas = new Canvas(gameBitmap);
         paint = new Paint();
+        //Canvas Background color
         gameCanvas.drawColor(Color.BLACK);
+        // Text Color
         paint.setColor(Color.WHITE);
         paint.setTextSize(50);
         gameCanvas.drawText("Score: 42 Lives: 3 HI: 97 ",50,100,paint);
         gameFrame.setImageBitmap(gameBitmap);
-        //circle=new Circle(50,new Point(250,150));
+        //circle=new circle(50,new Point(250,150));
         //drawCircle(circle, "Draw");
     }
 
