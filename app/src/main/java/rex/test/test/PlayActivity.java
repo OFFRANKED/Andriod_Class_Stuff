@@ -5,11 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -20,6 +21,7 @@ public class PlayActivity extends AppCompatActivity {
     private Bitmap gameBitmap;
     private Circle circle;
     private ImageView gameFrame;
+    private Rectangle rectangle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +46,41 @@ public class PlayActivity extends AppCompatActivity {
         // Text Color
         paint.setColor(Color.WHITE);
         paint.setTextSize(50);
-        gameCanvas.drawText("Score: 42 Lives: 3 HI: 97 ",50,100,paint);
+        gameCanvas.drawText("Rectangle ",50,100,paint);
         gameFrame.setImageBitmap(gameBitmap);
-        //circle=new circle(50,new Point(250,150));
-        //drawCircle(circle, "Draw");
+        //Values for Xs and Ys
+        rectangle = new Rectangle(new Point(250,250), new Point(500,400));
+        drawRectangle(rectangle,"DRAW");
+
+    }
+    //Draw function for rectangle
+    private void drawRectangle(Rectangle rectangle, String action)
+    {
+        if (action.equals("DRAW"))
+            paint.setColor(Color.WHITE);
+        else
+            paint.setColor(Color.BLACK);
+        //Get Function for x's and y's for rectangle
+        Rect temp= new Rect(rectangle.getM_TopLeft().getM_X(),rectangle.getM_TopLeft().getM_Y(), rectangle.getM_BottomRight().getM_X(),rectangle.getM_BottomRight().getM_Y());
+
+        gameCanvas.drawRect(temp, paint);
     }
 
-    //private void drawCircle(Circle circle, String action)
-    //{
-      //  if(action.equals("Draw"))
-    //        paint.setColor(Color.WHITE);
-    //    else
-   //         paint.setColor(Color.BLACK);
-   //     gameCanvas.drawCircle( );
-   // }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float newX = event.getX();
+        float newY = event.getY();
 
+        //Paint Old Rectangle black to erase it
+        drawRectangle(rectangle,"ERASE");
+
+        rectangle.translate(new Point((int)newX, (int)newY));
+
+        //Move the rectangle in white color
+        drawRectangle(rectangle,"DRAW");
+
+
+        gameFrame.invalidate();
+        return super.onTouchEvent(event);
+    }
 }
